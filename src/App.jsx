@@ -28,6 +28,17 @@ import { getBest } from "./engine.js";
 Through trial and error I noticed that the first option simply works better, especially
 when using a phone.
 */
+
+const hr = (
+  <hr
+    style={{
+      height: "2px",
+      border: "0 none",
+      color: "lightGray",
+      backgroundColor: "lightGray",
+    }}
+  />
+);
 export class MoveEntry extends React.Component {
   constructor(props) {
     super(props);
@@ -229,16 +240,6 @@ export class SettingsWindow extends React.Component {
       );
     };
 
-    const hr = (
-      <hr
-        style={{
-          height: "2px",
-          border: "0 none",
-          color: "lightGray",
-          backgroundColor: "lightGray",
-        }}
-      />
-    );
     const displaySettings = this.props.parentState
       .enterMoveByKeyboard ? null : (
       <div>
@@ -373,6 +374,9 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = startingState();
+    this.blackPieces = [];
+    this.whitePieces = [];
+    this.pieces = ["pawn", "king", "queen", "bishop", "knight", "rook"];
   }
   reset = () => this.setState(resetState(), this.makeComputerMove);
   // eslint-disable-next-line no-unused-vars
@@ -441,10 +445,47 @@ export class App extends React.Component {
       </Row>
     </div>
   );
+
+  getPieces = () => {
+    this.blackPieces = [];
+    this.whitePieces = [];
+    for (var i = 0; i < this.pieces.length; i++) {
+      let radioButton = (
+        <Row style={{ marginTop: 3 }}>
+          <div class="pretty p-default p-round">
+            <input type="radio" />
+            <div class="state">
+              <label>{this.pieces[i]}</label>
+            </div>
+          </div>
+        </Row>
+     );
+      this.whitePieces.push(radioButton);
+      this.blackPieces.push(radioButton);
+    }
+  }
+
   boardElement = () => {
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Board fen={this.state.gameClient.client.fen()} />
+      <div style={{ display: "flex", alignContent: "space-between", columnGap: 40}}>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"/>
+        <div>
+          <Board fen={this.state.gameClient.client.fen()} />
+        </div>
+        <div>
+          {this.getPieces()}
+          <Row style={{ marginBottom: 2 }}>
+            White
+          </Row>
+          {hr}
+          {this.blackPieces}
+          <Row style={{ marginTop: 20 }}>
+            Black
+          </Row>
+          {hr}
+          {this.blackPieces}
+          
+        </div>
       </div>
     );
   };

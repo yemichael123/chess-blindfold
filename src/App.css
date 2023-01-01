@@ -46,3 +46,35 @@
 .newGameButton {
   font-size: 125%;
 }
+
+.boardMain {
+  border: 1px solid black;
+  margin: 1rem;
+  padding: 2rem 2rem;
+  text-align: center;
+}
+.boardObject {
+  display: inline-block;
+  border: 1px solid red;
+  padding: 1rem 1rem;
+  vertical-align: middle;
+}
+
+/* #boardMain { 
+  width: 800px;
+  margin: 0 auto;
+}
+
+#board {
+  width: 200px;
+  height: 400px;
+  background: red;
+  float: left;
+}
+
+#sidebar {
+  width: 600px;
+  background: #ffffff;
+  height: 400px;
+  margin-left: 200px;
+} */
